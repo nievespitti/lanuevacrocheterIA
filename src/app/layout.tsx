@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/layout/ThemeProvider";
-import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "../components/ui/toaster";
+import { Header } from "../components/layout/Header";
+import { Footer } from "../components/layout/Footer";
+import { ThemeProvider } from "../components/layout/ThemeProvider";
+import { AuthProvider } from "../context/AuthContext";
 
 export const metadata: Metadata = {
   title: "La CrocheterIA",

@@ -58,21 +58,6 @@ const AdaptPatternActionInputSchema = z.object({
     pattern: z.string().optional(),
     patternPhotoDataUri: z.string().optional(),
     instruction: z.string().min(5, { message: 'La instrucción parece demasiado corta.' }),
-}).superRefine((data, ctx) => {
-    if (!data.pattern?.trim() && !data.patternPhotoDataUri) {
-        ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Debes proporcionar un patrón en texto o subir una imagen.',
-            path: ['pattern'],
-        });
-    }
-    if (data.pattern && data.pattern.length > 0 && data.pattern.length < 10) {
-        ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'El patrón en texto parece demasiado corto.',
-            path: ['pattern'],
-        });
-    }
 });
 
 export type PatternFormState = {
@@ -85,35 +70,57 @@ export async function getPatternAdaptation(
     prevState: PatternFormState,
     formData: FormData
 ): Promise<PatternFormState> {
-    const validatedFields = AdaptPatternActionInputSchema.safeParse({
-        pattern: formData.get('pattern'),
-        patternPhotoDataUri: formData.get('patternPhotoDataUri'),
-        instruction: formData.get('instruction'),
-    });
-
-    if (!validatedFields.success) {
-        const errorMessage = validatedFields.error.issues.map((issue) => issue.message).join(', ');
-        return {
-            message: errorMessage || 'Entrada inválida.',
-            adaptation: null,
-            success: false,
-        };
-    }
-
     try {
+        const rawData = {
+            pattern: formData.get('pattern'),
+            patternPhotoDataUri: formData.get('patternPhotoDataUri'),
+            instruction: formData.get('instruction'),
+        };
+
+        const validatedFields = AdaptPatternActionInputSchema.safeParse(rawData);
+
+        if (!validatedFields.success) {
+            const errorMessage = validatedFields.error.issues.map((issue) => issue.message).join(', ');
+            return {
+                message: errorMessage || 'Entrada inválida.',
+                adaptation: null,
+                success: false,
+            };
+        }
+
         const { pattern, patternPhotoDataUri, instruction } = validatedFields.data;
-        const result = await adaptPattern({
-            pattern: pattern || undefined,
-            patternPhotoDataUri: patternPhotoDataUri || undefined,
-            instruction: instruction
-        });
+
+        if (!pattern && !patternPhotoDataUri) {
+            return {
+                message: 'Debes proporcionar un patrón en texto o subir una imagen.',
+                adaptation: null,
+                success: false,
+            };
+        }
+
+        if (pattern && pattern.length < 10) {
+            return {
+                message: 'El patrón en texto parece demasiado corto.',
+                adaptation: null,
+                success: false,
+            };
+        }
+        
+        const input: AdaptPatternInput = {
+            instruction: instruction,
+            ...(pattern && { pattern }),
+            ...(patternPhotoDataUri && { patternPhotoDataUri }),
+        };
+
+        const result = await adaptPattern(input);
+        
         return {
             message: '¡Aquí tienes tu patrón adaptado!',
             adaptation: result,
             success: true,
         };
     } catch (error) {
-        console.error(error);
+        console.error("Error in getPatternAdaptation:", error);
         return {
             message: 'Error al contactar la IA. Es posible que el servicio no esté disponible en tu región. Por favor, inténtelo de nuevo más tarde.',
             adaptation: null,
@@ -121,6 +128,7 @@ export async function getPatternAdaptation(
         };
     }
 }
+
 
 const ChatActionInputSchema = z.object({
   history: z.string(), // history will be a JSON string

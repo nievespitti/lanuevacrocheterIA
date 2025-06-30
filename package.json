@@ -1,3 +1,4 @@
+
 {
   "name": "la-crocheteria",
   "version": "0.1.0",
@@ -59,6 +60,8 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@opentelemetry/exporter-jaeger": "^1.26.0",
+    "@opentelemetry/winston-transport": "^0.7.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

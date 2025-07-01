@@ -114,7 +114,8 @@ export function AiPatternAdapter() {
             Adaptador de Patrones
           </CardTitle>
           <CardDescription>
-            Pega un patrón, o sube una foto, y dile a la IA cómo adaptarlo.
+            Pega un patrón, o sube una foto de buena calidad, y dile a la IA
+            cómo adaptarlo.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -162,7 +163,7 @@ export function AiPatternAdapter() {
               ) : (
                 <label
                   htmlFor="pattern-photo-input"
-                  className="flex flex-col items-center justify-center w-full h-32 border-2 border-border border-dashed rounded-lg cursor-pointer bg-card hover:bg-muted transition-colors"
+                  className="flex flex-col items-center justify-center w-full min-h-32 p-4 text-center border-2 border-border border-dashed rounded-lg cursor-pointer bg-card hover:bg-muted transition-colors"
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <UploadCloud className="w-8 h-8 mb-4 text-muted-foreground" />
@@ -171,7 +172,11 @@ export function AiPatternAdapter() {
                       o arrastra una imagen
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      PNG, JPG, etc.
+                      PNG, JPG, etc. (Máx 4MB)
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-2 px-2 italic">
+                      Consejo: Para mejores resultados, usa una foto plana,
+                      nítida y bien iluminada.
                     </p>
                   </div>
                   <Input

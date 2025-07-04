@@ -15,23 +15,16 @@ const firebaseConfig = process.env.FIREBASE_CONFIG
       measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
     };
 
-let app: FirebaseApp;
-let auth: Auth;
+let app: FirebaseApp | null = null;
+let auth: Auth | null = null;
 
-// This check prevents Firebase from trying to initialize on the server during the build process,
-// where environment variables might not be fully available.
+// This check prevents Firebase from trying to initialize on the server during the build process
+// or on the client if env vars are missing.
 if (firebaseConfig?.apiKey) {
-  // Initialize Firebase only if it hasn't been initialized yet
   app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   auth = getAuth(app);
 } else {
-  // If the config is not available (e.g., during build), we log a warning
-  // and create dummy objects. This allows the build to succeed without crashing.
-  // The app will properly initialize on the client-side or server-side runtime
-  // where the full config is available.
-  console.warn("Firebase config not found. Firebase features may be unavailable during build.");
-  app = {} as FirebaseApp; // Provide a dummy object to satisfy type requirements
-  auth = {} as Auth;      // Provide a dummy object to satisfy type requirements
+    console.warn("Firebase config not found. Firebase features will be unavailable.");
 }
 
 export { app, auth };

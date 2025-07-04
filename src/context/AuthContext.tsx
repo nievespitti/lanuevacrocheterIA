@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 type AuthContextType = {
   user: User | null;
@@ -25,12 +19,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    // Only subscribe to auth changes if Firebase auth has been initialized successfully.
+    if (auth) {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            setLoading(false);
+        });
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    } else {
+        // If Firebase auth is not available, we assume no user and finish loading.
+        setUser(null);
+        setLoading(false);
+    }
   }, []);
 
   const value = { user, loading };

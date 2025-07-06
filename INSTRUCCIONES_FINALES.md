@@ -1,22 +1,21 @@
 # Guía Definitiva para el Despliegue Exitoso
 
-¡Hola, Nieves! Has hecho un trabajo increíble de depuración. Hemos descubierto que la consola de Firebase no te muestra la opción para las variables de entorno. Este plan es la solución definitiva y segura.
+¡Hola, Nieves! Has hecho un trabajo increíble de depuración. Hemos descubierto que la consola de Firebase no te muestra la opción para las variables de entorno, y que mis cambios automáticos no se estaban sincronizando bien.
 
-Sigue estos pasos en orden.
+Este plan es la solución definitiva y segura que te dará el control. Sigue estos pasos en orden.
 
 ---
 
 ### **Paso 1: Hacer tu Repositorio de GitHub Privado (MUY IMPORTANTE)**
 
-Esto es para proteger tus claves de API y asegurar que nadie más pueda ver tu código.
+Esto es para proteger tus claves de API y asegurar que nadie más pueda ver tu código. Si no lo has hecho ya, este es el paso más crítico.
 
 1.  Ve a tu repositorio en GitHub:
     **https://github.com/nievespitti/crocheterIA**
 2.  Haz clic en la pestaña **"Settings"** (Configuración) en la parte superior.
-3.  Baja hasta el final de la página hasta que veas la **"Danger Zone"** (Zona de Peligro), que tiene un borde rojo.
+3.  Baja hasta el final de la página hasta que veas la **"Danger Zone"** (Zona de Peligro).
 4.  Busca el botón **"Change repository visibility"** (Cambiar visibilidad del repositorio) y haz clic en él.
-5.  Selecciona la opción **"Make private"** (Hacer privado).
-6.  GitHub te pedirá que confirmes escribiendo el nombre de tu repositorio (`nievespitti/crocheterIA`). Escríbelo y confirma.
+5.  Selecciona la opción **"Make private"** (Hacer privado) y confirma.
 
 ¡Listo! Tu repositorio ahora es seguro.
 
@@ -57,14 +56,14 @@ Ahora vamos a crear el archivo con las claves en tu máquina local.
 
 ### **Paso 4: Subir el Archivo Seguro a GitHub**
 
-Ahora que tu repositorio es privado, es seguro subir este archivo.
+Ahora que tu repositorio es privado y tiene la configuración correcta, es seguro subir este archivo.
 
 1.  **Abre la terminal** en la carpeta de tu proyecto.
-2.  Primero, descarga los últimos cambios (como el archivo `.gitignore` que he añadido):
+2.  Primero, descarga los últimos cambios de GitHub (como el `.gitignore` corregido):
     ```bash
     git pull origin main
     ```
-3.  Añade tu nuevo archivo `.env` para que Git lo rastree:
+3.  Añade tu nuevo archivo `.env` para que Git lo rastree (y cualquier otro cambio):
     ```bash
     git add .
     ```
@@ -81,11 +80,11 @@ Ahora que tu repositorio es privado, es seguro subir este archivo.
 
 ### **Paso 5: El Lanzamiento Final**
 
-¡Este es el último paso!
+¡Este es el último paso! Al haber subido nuevos cambios a GitHub, Firebase debería iniciar un despliegue automático.
+
 1.  Ve a la consola de Firebase, a la sección de App Hosting para tu backend `lacrocheteria`.
-2.  Ve a la pestaña **"Lanzamientos"**.
-3.  Inicia un **nuevo despliegue manual**.
+2.  Ve a la pestaña **"Lanzamientos"**. Deberías ver un nuevo despliegue en curso. Si no, inicia uno **manual**.
 
 Como el repositorio ahora es privado y contiene el archivo `.env` con las claves correctas, la aplicación se construirá, el servidor arrancará y se conectará a Firebase.
 
-**¡Tu aplicación estará online y funcionando!** ¡Has hecho un trabajo increíble!
+**¡Tu aplicación estará online y funcionando en `lacrocheteria.com`!** ¡Has hecho un trabajo increíble!

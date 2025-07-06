@@ -1,5 +1,4 @@
 'use server';
-
 /**
  * @fileOverview A conversational AI agent for answering crochet questions.
  *
@@ -28,13 +27,8 @@ const ChatOutputSchema = z.object({
 });
 export type ChatOutput = z.infer<typeof ChatOutputSchema>;
 
-// Variable para almacenar el flujo una vez definido (lazy initialization)
 let _chatFlow: ReturnType<typeof ai.defineFlow> | null = null;
 
-/**
- * Obtiene el flujo de chat, definiéndolo solo la primera vez que se llama.
- * Esto evita problemas durante el proceso de compilación (build).
- */
 function getChatFlow() {
   if (!_chatFlow) {
     _chatFlow = ai.defineFlow(
@@ -69,6 +63,5 @@ function getChatFlow() {
 
 export async function chat(input: ChatInput): Promise<ChatOutput> {
   const chatFlow = getChatFlow();
-  // Llamamos al flujo directamente, que es la sintaxis correcta para esta versión de Genkit.
   return chatFlow(input);
 }

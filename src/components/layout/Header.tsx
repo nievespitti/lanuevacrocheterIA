@@ -19,7 +19,7 @@ import {
   PanelLeft,
   LogIn,
   LogOut,
-  LoaderCircle
+  LoaderCircle,
 } from "lucide-react";
 import {
   Sheet,
@@ -41,11 +41,20 @@ const navLinks = [
   { href: "/perfil", label: "Mi Perfil", icon: User },
 ];
 
-const publicNavLinks = navLinks.filter(l => l.href !== '/perfil');
-const profileLink = navLinks.find(l => l.href === '/perfil')!;
+const publicNavLinks = navLinks.filter((l) => l.href !== "/perfil");
+const profileLink = navLinks.find((l) => l.href === "/perfil")!;
 
-
-function NavLink({ href, label, icon: Icon, onClick }: { href: string; label: string; icon: React.ElementType, onClick?: () => void }) {
+function NavLink({
+  href,
+  label,
+  icon: Icon,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  icon: React.ElementType;
+  onClick?: () => void;
+}) {
   const pathname = usePathname();
   const isActive = pathname === href;
 
@@ -107,11 +116,11 @@ export function Header() {
             </h1>
           </Link>
         </div>
-        
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-2 text-sm font-medium">
           {publicNavLinks.map((link) => (
-             <Button key={link.href} asChild variant="ghost" size="sm">
+            <Button key={link.href} asChild variant="ghost" size="sm">
               <Link href={link.href}>
                 <link.icon className="mr-2 h-4 w-4" />
                 {link.label}
@@ -121,7 +130,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-           <Button asChild variant="outline" className="hidden lg:flex">
+          <Button asChild variant="outline" className="hidden lg:flex">
             <a
               href="https://notebooklm.google.com/viewer/notebook/6deea074-1085-4244-9369-25dc95addbef"
               target="_blank"
@@ -131,38 +140,35 @@ export function Header() {
               Mi Biblia del Crochet
             </a>
           </Button>
-          
+
           {loading ? (
             <LoaderCircle className="h-5 w-5 animate-spin hidden md:block" />
           ) : user ? (
             <div className="hidden md:flex items-center gap-2">
-                <Button asChild variant="ghost" size="sm">
-                    <Link href="/perfil">
-                      <User className="mr-2 h-4 w-4" />
-                      Perfil
-                    </Link>
-                </Button>
-                <Button onClick={handleLogout} variant="outline" size="sm">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Salir
-                </Button>
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/perfil">
+                  <User className="mr-2 h-4 w-4" />
+                  Perfil
+                </Link>
+              </Button>
+              <Button onClick={handleLogout} variant="outline" size="sm">
+                <LogOut className="mr-2 h-4 w-4" />
+                Salir
+              </Button>
             </div>
           ) : (
             <div className="hidden md:flex items-center gap-2">
-                <Button asChild variant="ghost" size="sm">
-                    <Link href="/login">
-                        <LogIn className="mr-2 h-4 w-4" />
-                        Iniciar Sesión
-                    </Link>
-                </Button>
-                <Button asChild size="sm">
-                    <Link href="/signup">
-                        Registrarse
-                    </Link>
-                </Button>
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/login">
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Iniciar Sesión
+                </Link>
+              </Button>
+              <Button asChild size="sm">
+                <Link href="/signup">Registrarse</Link>
+              </Button>
             </div>
           )}
-
 
           <ThemeToggle />
 
@@ -188,31 +194,53 @@ export function Header() {
                   <span className="font-headline text-xl">La CrocheterIA</span>
                 </Link>
                 {publicNavLinks.map((link) => (
-                  <NavLink key={link.href} {...link} onClick={() => setIsMobileMenuOpen(false)} />
+                  <NavLink
+                    key={link.href}
+                    {...link}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  />
                 ))}
                 {user && (
-                    <NavLink key={profileLink.href} {...profileLink} onClick={() => setIsMobileMenuOpen(false)} />
+                  <NavLink
+                    key={profileLink.href}
+                    {...profileLink}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  />
                 )}
               </nav>
               <div className="mt-auto flex flex-col gap-2">
                 {loading ? (
-                    <LoaderCircle className="h-6 w-6 animate-spin mx-auto" />
+                  <LoaderCircle className="h-6 w-6 animate-spin mx-auto" />
                 ) : !user ? (
-                    <div className="flex flex-col gap-2">
-                        <Button asChild onClick={() => setIsMobileMenuOpen(false)} size="lg">
-                            <Link href="/login">Iniciar Sesión</Link>
-                        </Button>
-                        <Button asChild onClick={() => setIsMobileMenuOpen(false)} size="lg" variant="outline">
-                            <Link href="/signup">Registrarse</Link>
-                        </Button>
-                    </div>
+                  <div className="flex flex-col gap-2">
+                    <Button
+                      asChild
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      size="lg"
+                    >
+                      <Link href="/login">Iniciar Sesión</Link>
+                    </Button>
+                    <Button
+                      asChild
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      size="lg"
+                      variant="outline"
+                    >
+                      <Link href="/signup">Registrarse</Link>
+                    </Button>
+                  </div>
                 ) : (
-                   <Button onClick={handleLogout} size="lg" variant="outline">
-                       <LogOut className="mr-2 h-5 w-5" />
-                       Cerrar Sesión
-                   </Button>
+                  <Button onClick={handleLogout} size="lg" variant="outline">
+                    <LogOut className="mr-2 h-5 w-5" />
+                    Cerrar Sesión
+                  </Button>
                 )}
-                 <Button asChild variant="outline" className="w-full" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
                   <a
                     href="https://notebooklm.google.com/viewer/notebook/6deea074-1085-4244-9369-25dc95addbef"
                     target="_blank"

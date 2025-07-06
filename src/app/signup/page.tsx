@@ -27,29 +27,36 @@ export default function SignupPage() {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
     if (!auth) {
       toast({
         variant: "destructive",
         title: "Error de Configuración",
-        description: "El servicio de autenticación no está disponible en este momento. Por favor, recarga la página.",
+        description: "El servicio de autenticación no está disponible.",
       });
+      setIsLoading(false);
       return;
     }
-    setIsLoading(true);
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       toast({
         title: "¡Cuenta creada!",
-        description: "Bienvenida a La CrocheterIA. Te hemos redirigido a tu perfil.",
+        description:
+          "Bienvenida a La CrocheterIA. Te hemos redirigido a tu perfil.",
       });
       router.push("/perfil");
     } catch (error: any) {
       console.error("Error signing up:", error);
-      let description = "Ha ocurrido un error inesperado. Por favor, inténtelo de nuevo.";
-      if (error.code === 'auth/weak-password') {
-        description = "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.";
-      } else if (error.code === 'auth/email-already-in-use') {
-        description = "Este correo electrónico ya está en uso. Por favor, inicie sesión.";
+      let description =
+        "Ha ocurrido un error inesperado. Por favor, inténtelo de nuevo.";
+      if (error.code === "auth/weak-password") {
+        description =
+          "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.";
+      } else if (error.code === "auth/email-already-in-use") {
+        description =
+          "Este correo electrónico ya está en uso. Por favor, inicie sesión.";
       }
       toast({
         variant: "destructive",
@@ -73,30 +80,32 @@ export default function SignupPage() {
         <CardContent>
           <form onSubmit={handleSignUp} className="grid gap-4">
             <div className="grid gap-2">
-                <Label htmlFor="email">Correo electrónico</Label>
-                <Input
-                    id="email"
-                    type="email"
-                    placeholder="nombre@ejemplo.com"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={isLoading}
-                />
+              <Label htmlFor="email">Correo electrónico</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="nombre@ejemplo.com"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
+              />
             </div>
             <div className="grid gap-2">
-                <Label htmlFor="password">Contraseña</Label>
-                <Input 
-                    id="password" 
-                    type="password" 
-                    required 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    disabled={isLoading}
-                />
+              <Label htmlFor="password">Contraseña</Label>
+              <Input
+                id="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading}
+              />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+              {isLoading && (
+                <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+              )}
               {isLoading ? "Creando cuenta..." : "Crear mi cuenta"}
             </Button>
           </form>

@@ -1,5 +1,6 @@
 
 import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
+import { getAuth, type Auth } from "firebase/auth";
 
 // This configuration is now primarily driven by environment variables.
 // The build process in App Hosting will pick these up from the .env file
@@ -14,17 +15,28 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
+let app: FirebaseApp | null = null;
+let auth: Auth | null = null;
 
 // A function to safely get the initialized Firebase app.
-export function getFirebaseApp(): FirebaseApp | null {
-  // If the config is still missing after the build, it means the .env file
-  // was not configured correctly. The app will still run, but Firebase features
-  // will be unavailable, and this message will appear in the server logs.
+function initializeFirebase(): void {
   if (!firebaseConfig?.apiKey) {
     console.error("Firebase config not found. Firebase features will be unavailable.");
-    return null;
+    return;
   }
   
-  // Return the existing app if it's already initialized, otherwise initialize it.
-  return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  if (getApps().length === 0) {
+    app = initializeApp(firebaseConfig);
+  } else {
+    app = getApp();
+  }
+
+  if (app) {
+    auth = getAuth(app);
+  }
 }
+
+// Initialize on module load
+initializeFirebase();
+
+export { app, auth };

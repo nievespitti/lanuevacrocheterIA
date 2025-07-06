@@ -18,7 +18,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { LoaderCircle } from "lucide-react";
 
-
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,15 +27,18 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
     if (!auth) {
       toast({
         variant: "destructive",
         title: "Error de Configuración",
-        description: "El servicio de autenticación no está disponible en este momento. Por favor, recarga la página.",
+        description: "El servicio de autenticación no está disponible.",
       });
+      setIsLoading(false);
       return;
     }
-    setIsLoading(true);
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast({
@@ -46,8 +48,13 @@ export default function LoginPage() {
       router.push("/perfil");
     } catch (error: any) {
       console.error("Error signing in:", error);
-      let description = "Ha ocurrido un error inesperado. Por favor, inténtelo de nuevo.";
-      if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+      let description =
+        "Ha ocurrido un error inesperado. Por favor, inténtelo de nuevo.";
+      if (
+        error.code === "auth/invalid-credential" ||
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
         description = "El correo electrónico o la contraseña son incorrectos.";
       }
       toast({
@@ -64,7 +71,9 @@ export default function LoginPage() {
     <div className="flex items-center justify-center py-12 animate-in fade-in-0 duration-500">
       <Card className="mx-auto max-w-sm w-full shadow-lg">
         <CardHeader>
-          <CardTitle className="text-2xl font-headline">Iniciar Sesión</CardTitle>
+          <CardTitle className="text-2xl font-headline">
+            Iniciar Sesión
+          </CardTitle>
           <CardDescription>
             Introduce tu correo para acceder a tu perfil.
           </CardDescription>
@@ -87,17 +96,19 @@ export default function LoginPage() {
               <div className="flex items-center">
                 <Label htmlFor="password">Contraseña</Label>
               </div>
-              <Input 
-                id="password" 
-                type="password" 
-                required 
+              <Input
+                id="password"
+                type="password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
               />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+              {isLoading && (
+                <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+              )}
               {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
             </Button>
           </form>

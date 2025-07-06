@@ -1,13 +1,11 @@
+import { config } from 'dotenv';
+// Explicitly load the .env file to ensure environment variables are available during build.
+config({ path: '.env' });
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     remotePatterns: [
       {

@@ -1,3 +1,15 @@
 {
-  "apphosting": {}
+  "apphosting": {
+          "hosting": "",
+          "public": "public",
+          "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**",
+            "src",
+            "src/**",
+            "src/**/.*",
+            "src/**/node_modules/**",   
+    }
+  }
 }

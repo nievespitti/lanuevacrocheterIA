@@ -1,4 +1,5 @@
 'use server';
+
 /**
  * @fileOverview A conversational AI agent for answering crochet questions.
  *
@@ -27,32 +28,47 @@ const ChatOutputSchema = z.object({
 });
 export type ChatOutput = z.infer<typeof ChatOutputSchema>;
 
-export async function chat(input: ChatInput): Promise<ChatOutput> {
-  return chatFlow(input);
+// Variable para almacenar el flujo una vez definido (lazy initialization)
+let _chatFlow: ReturnType<typeof ai.defineFlow> | null = null;
+
+/**
+ * Obtiene el flujo de chat, definiéndolo solo la primera vez que se llama.
+ * Esto evita problemas durante el proceso de compilación (build).
+ */
+function getChatFlow() {
+  if (!_chatFlow) {
+    _chatFlow = ai.defineFlow(
+      {
+        name: 'chatFlow',
+        inputSchema: ChatInputSchema,
+        outputSchema: ChatOutputSchema,
+      },
+      async ({history, message}) => {
+        const convertToGeminiMessage = (msg: ChatMessage) => ({
+          role: msg.role,
+          content: [{text: msg.content}],
+        });
+
+        const geminiHistory = history.map(convertToGeminiMessage);
+
+        const response = await ai.generate({
+          model: 'googleai/gemini-2.0-flash',
+          system:
+            'Eres un asistente de IA experto en crochet, amigable y servicial, llamado La CrocheterIA. Tu propósito es ayudar a los usuarios con todas sus dudas sobre el arte del crochet. Todas tus respuestas deben ser en español. Mantén tus respuestas claras, concisas y fáciles de entender para personas de todos los niveles de habilidad.',
+          history: geminiHistory,
+          prompt: message,
+        });
+
+        return {response: response.text};
+      }
+    );
+  }
+
+  return _chatFlow;
 }
 
-const chatFlow = ai.defineFlow(
-  {
-    name: 'chatFlow',
-    inputSchema: ChatInputSchema,
-    outputSchema: ChatOutputSchema,
-  },
-  async ({history, message}) => {
-    const convertToGeminiMessage = (msg: ChatMessage) => ({
-      role: msg.role,
-      content: [{text: msg.content}],
-    });
-
-    const geminiHistory = history.map(convertToGeminiMessage);
-
-    const response = await ai.generate({
-      model: 'googleai/gemini-2.0-flash',
-      system:
-        'Eres un asistente de IA experto en crochet, amigable y servicial, llamado La CrocheterIA. Tu propósito es ayudar a los usuarios con todas sus dudas sobre el arte del crochet. Todas tus respuestas deben ser en español. Mantén tus respuestas claras, concisas y fáciles de entender para personas de todos los niveles de habilidad.',
-      history: geminiHistory,
-      prompt: message,
-    });
-
-    return {response: response.text};
-  }
-);
+export async function chat(input: ChatInput): Promise<ChatOutput> {
+  const chatFlow = getChatFlow();
+  // Llamamos al flujo directamente, que es la sintaxis correcta para esta versión de Genkit.
+  return chatFlow(input);
+}

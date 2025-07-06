@@ -9,7 +9,6 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import type {Message} from '@genkit-ai/googleai';
 
 const MessageSchema = z.object({
   role: z.enum(['user', 'model']),
@@ -39,7 +38,7 @@ const chatFlow = ai.defineFlow(
     outputSchema: ChatOutputSchema,
   },
   async ({history, message}) => {
-    const convertToGeminiMessage = (msg: ChatMessage): Message => ({
+    const convertToGeminiMessage = (msg: ChatMessage) => ({
       role: msg.role,
       content: [{text: msg.content}],
     });

@@ -57,15 +57,14 @@ export default function ComunidadPage() {
               className="overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full"
             >
               <CardHeader className="p-0">
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={project.imageUrl}
-                    alt={project.projectName}
-                    fill
-                    className="object-cover"
-                    data-ai-hint={project["data-ai-hint"]}
-                  />
-                </div>
+                <Image
+                  src={project.imageUrl}
+                  alt={project.projectName}
+                  width={600}
+                  height={400}
+                  className="object-cover w-full h-48"
+                  data-ai-hint={project["data-ai-hint"]}
+                />
               </CardHeader>
               <CardContent className="p-4">
                 <CardTitle className="font-headline text-xl mb-1">

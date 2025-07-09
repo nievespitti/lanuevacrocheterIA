@@ -34,15 +34,14 @@ function ProjectGuideCard({ project }: { project: ProjectGuide }) {
       )}
     >
       <CardHeader className="p-0">
-        <div className="relative h-48 w-full">
-          <Image
-            src={project.image}
-            alt={project.name}
-            fill
-            className="object-cover"
-            data-ai-hint={project["data-ai-hint"]}
-          />
-        </div>
+        <Image
+          src={project.image}
+          alt={project.name}
+          width={600}
+          height={400}
+          className="object-cover w-full h-48"
+          data-ai-hint={project["data-ai-hint"]}
+        />
         <div className="p-6 pb-2">
           <Badge
             variant={isCompleted ? "default" : "secondary"}

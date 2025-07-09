@@ -37,13 +37,14 @@ function VideoTutorialCard({ tutorial }: { tutorial: VideoTutorial }) {
           href={tutorial.videoUrl || "#"}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative h-48 w-full group block cursor-pointer"
+          className="relative group block cursor-pointer"
         >
           <Image
             src={tutorial.thumbnail}
             alt={tutorial.title}
-            fill
-            className="object-cover"
+            width={600}
+            height={400}
+            className="object-cover w-full h-48"
             data-ai-hint={tutorial["data-ai-hint"]}
           />
           <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

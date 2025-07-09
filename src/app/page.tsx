@@ -24,11 +24,11 @@ export default function Home() {
       {/* Hero Section */}
       <section className="text-center">
         <h1 className="text-4xl md:text-5xl font-headline text-foreground mb-4">
-          Tu universo de crochet, potenciado por IA
+          Tu universo del crochet, potenciado por IA
         </h1>
         <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-8">
           Descubre patrones, perfecciona tus habilidades con nuestra academia y
-          da vida a tus ideas con un asistente creativo único.
+          da vida a tus ideas con nuestro asistente creativo único.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg">
@@ -52,15 +52,14 @@ export default function Home() {
             <Link key={project.id} href="/galeria">
               <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
                 <CardHeader className="p-0">
-                  <div className="relative h-48 w-full">
-                    <Image
-                      src={project.image}
-                      alt={project.name}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={project["data-ai-hint"]}
-                    />
-                  </div>
+                  <Image
+                    src={project.image}
+                    alt={project.name}
+                    width={600}
+                    height={400}
+                    className="object-cover w-full h-48"
+                    data-ai-hint={project["data-ai-hint"]}
+                  />
                 </CardHeader>
                 <CardContent className="p-4">
                   <CardTitle className="font-headline text-xl mb-1">

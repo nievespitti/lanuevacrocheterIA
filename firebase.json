@@ -2,5 +2,19 @@
   "apphosting": {
          
     }
+
+    {
+      "hosting": {
+        "site": "la-crocheteria",
+        "public": "dist", // o ".next" si usás Next.js
+        "rewrites": [
+          {
+            "source": "**",
+            "destination": "/index.html"
+          }
+        ]
+      }
+    }
+    
  }
 

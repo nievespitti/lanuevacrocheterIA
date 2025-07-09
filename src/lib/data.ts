@@ -9,7 +9,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "IntroIcon", // Uses fallback icon
     difficulty: "Principiante",
     step: 1,
-    pdfUrl: "/guides/principiante/guia_1_1_introduccion_crochet.pdf",
   },
   {
     id: "sl2",
@@ -18,7 +17,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "ToolsIcon", // Uses fallback icon
     difficulty: "Principiante",
     step: 2,
-    pdfUrl: "/guides/principiante/guia_1_2_materiales_herramientas.pdf",
   },
   {
     id: "sl3",
@@ -27,7 +25,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "HoldIcon", // Uses fallback icon
     difficulty: "Principiante",
     step: 3,
-    pdfUrl: "/guides/principiante/guia_1_3_sostener_ganchillo_hilo.pdf",
   },
   {
     id: "sl4",
@@ -36,7 +33,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "ChainIcon",
     difficulty: "Principiante",
     step: 4,
-    pdfUrl: "/guides/principiante/guia_1_4_cadena_base.pdf",
   },
   {
     id: "sl5",
@@ -45,7 +41,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "SingleCrochetIcon",
     difficulty: "Principiante",
     step: 5,
-    pdfUrl: "/guides/principiante/guia_1_5_punto_bajo.pdf",
   },
   {
     id: "sl6",
@@ -54,7 +49,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "HalfDoubleCrochetIcon",
     difficulty: "Principiante",
     step: 6,
-    pdfUrl: "/guides/principiante/guia_1_6_punto_medio_alto.pdf",
   },
   {
     id: "sl7",
@@ -63,7 +57,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "DoubleCrochetIcon",
     difficulty: "Principiante",
     step: 7,
-    pdfUrl: "/guides/principiante/guia_1_7_punto_alto.pdf",
   },
   {
     id: "sl8",
@@ -72,7 +65,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "SlipStitchIcon", // Uses fallback icon
     difficulty: "Principiante",
     step: 8,
-    pdfUrl: "/guides/principiante/guia_1_8_punto_deslizado.pdf",
   },
 
   // Intermedio
@@ -83,7 +75,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "IncreaseDecreaseIcon", // Fallback icon
     difficulty: "Intermedio",
     step: 1,
-    pdfUrl: "/guides/intermedio/guia_2_1_aumentos_disminuciones.pdf",
   },
   {
     id: "sl_int_2",
@@ -92,7 +83,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "DiagramIcon", // Fallback icon
     difficulty: "Intermedio",
     step: 2,
-    pdfUrl: "/guides/intermedio/guia_2_2_leer_patrones_diagramas.pdf",
   },
   
   // Experto
@@ -103,7 +93,6 @@ export const stitchLessons: StitchLesson[] = [
     icon: "MagicRingIcon",
     difficulty: "Experto",
     step: 1,
-    pdfUrl: "/guides/experto/guia_3_1_anillo_magico.pdf",
   },
 ];
 
@@ -188,7 +177,6 @@ export const projectGuides: ProjectGuide[] = [
     difficulty: "Principiante",
     image: "https://placehold.co/600x400.png",
     "data-ai-hint": "crochet coaster",
-    pdfUrl: "/guides/proyecto-posavasos-sencillo.pdf",
   },
   {
     id: "p2",
@@ -198,7 +186,6 @@ export const projectGuides: ProjectGuide[] = [
     difficulty: "Principiante",
     image: "https://placehold.co/600x400.png",
     "data-ai-hint": "crochet scarf",
-    pdfUrl: "/guides/proyecto-bufanda-clasica.pdf",
   },
   {
     id: "p3",
@@ -208,7 +195,6 @@ export const projectGuides: ProjectGuide[] = [
     difficulty: "Intermedio",
     image: "https://placehold.co/600x400.png",
     "data-ai-hint": "crochet beanie",
-    pdfUrl: "/guides/proyecto-gorro-basico.pdf",
   },
   {
     id: "p4",
@@ -218,7 +204,6 @@ export const projectGuides: ProjectGuide[] = [
     difficulty: "Intermedio",
     image: "https://placehold.co/600x400.png",
     "data-ai-hint": "crochet octopus",
-    pdfUrl: "/guides/proyecto-amigurumi-de-pulpo.pdf",
   },
   {
     id: "p5",
@@ -228,7 +213,6 @@ export const projectGuides: ProjectGuide[] = [
     difficulty: "Experto",
     image: "https://placehold.co/600x400.png",
     "data-ai-hint": "crochet shawl",
-    pdfUrl: "/guides/proyecto-chal-de-la-abuela.pdf",
   },
    {
     id: "p6",
@@ -238,6 +222,5 @@ export const projectGuides: ProjectGuide[] = [
     difficulty: "Experto",
     image: "https://placehold.co/600x400.png",
     "data-ai-hint": "crochet baby blanket",
-    pdfUrl: "/guides/proyecto-manta-de-bebe.pdf",
   },
 ];
